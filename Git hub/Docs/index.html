@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulatore Centrale Operativa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <span class="header-title">Simulatore Centrale Operativa</span>
+            <button onclick="game.generateNewCall()" class="header-button">Nuova chiamata</button>
+        </div>
+        <div class="header-right">
+            <img src="src/assets/logo118.png" alt="Logo 118 AREU" class="logo-areu" style="height:38px; margin-left:18px;" />
+        </div>
+    </header>
+
+    <div class="griglia">
+        <div class="box" id="mappa">
+            <div id="game-map"></div>
+        </div>
+        <div class="box" id="eventiInCorso">
+            <h2>Eventi in corso</h2>
+            <div class="box-content"></div>
+        </div>
+        <div class="box" id="statoMezzi">
+            <h2>Stato Mezzi</h2>
+            <div class="box-content"></div>
+        </div>
+        <div class="box" id="chiamateInArrivo">
+            <h2>Chiamate in arrivo</h2>
+            <div class="box-content"></div>
+        </div>
+    </div>
+
+    <div id="popupMissione" class="popup hidden">
+        <form id="missionForm">
+            <input id="indirizzo" name="indirizzo" type="text" readonly>
+            <select id="luogo" name="luogo"></select>
+            <select id="patologia" name="patologia"></select>
+            <select id="codice" name="codice">
+                <option value="Rosso">Rosso</option>
+                <option value="Giallo">Giallo</option>
+                <option value="Verde">Verde</option>
+            </select>
+            <div id="mezziAssegnati"></div>
+            <button type="button" onclick="game.confirmCall()">Conferma</button>
+            <button type="button" onclick="game.chiudiPopup()">Annulla</button>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="src/js/core/Game.js"></script>
+    <script src="src/js/core/UI.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.game = new EmergencyDispatchGame();
+            game.initialize(); // <-- questa chiamata è sufficiente!
+            // game.initializeMap(); // RIMOSSO: evita errore "Map container is already initialized"
+        });
+    </script>
+</body>
+</html>
